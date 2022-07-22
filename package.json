@@ -1,0 +1,27 @@
+{
+  "name": "week11",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "cd server && npm start",
+    "dev:client": "cd client && npm start",
+    "preinstall": "cd server && npm install",
+    "dev:server": "cd server && npm run dev",
+    "install": "cd client && npm install",
+    "build":"cd client && npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sarajessicv/web-week11.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sarajessicv/web-week11/issues"
+  },
+  "homepage": "https://github.com/sarajessicv/web-week11#readme",
+  "dependencies": {
+    "dotenv": "^16.0.1"
+  },
+  "description": ""
+}
