@@ -1,5 +1,5 @@
 {
-  "name": "week11",
+  "name": "HT",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -12,14 +12,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sarajessicv/web-week11.git"
+    "url": "git+https://github.com/sarajessicv/web-HT.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/sarajessicv/web-week11/issues"
+    "url": "https://github.com/sarajessicv/web-HT/issues"
   },
-  "homepage": "https://github.com/sarajessicv/web-week11#readme",
+  "homepage": "https://github.com/sarajessicv/web-HT#readme",
   "dependencies": {
     "dotenv": "^16.0.1"
   },
