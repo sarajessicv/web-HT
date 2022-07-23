@@ -16,9 +16,9 @@ function App() {
     <Router>
     <div className="App">
       <NavBar></NavBar>
-    <h1>Frontpage</h1>
+    
       <Routes>
-        <Route path='/' element={<h3>Posts here</h3>}> </Route>
+        <Route path='/' element={<div> <h1>Frontpage</h1> <h3>Posts here</h3> </div>}> </Route>
         <Route path='/login' element={<Login></Login>}></Route>
         <Route path='/register' element={<Register></Register>}></Route>
         <Route path='/login/forgotpassword' element={<ForgotPassWord></ForgotPassWord>}></Route>

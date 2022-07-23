@@ -7,13 +7,12 @@ var logger = require('morgan');
 var mongoose = require("mongoose");
 var cors = require('cors')
 
-var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var apiRouter = require('./routes/api');
 
 var app = express();
 
-const mongoDB = "mongodb://localhost:27017/testdb";
+const mongoDB = "mongodb://localhost:27017/HTDB";
 mongoose.connect(mongoDB);
 mongoose.Promise = Promise;
 const db = mongoose.connection;
@@ -27,7 +26,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 
-app.use('/users', usersRouter);
+app.use('/user', usersRouter);
 app.use('/api', apiRouter);
 
 
@@ -38,7 +37,7 @@ if(process.env.NODE_ENV === "production"){
     });
 }else if(process.env.NODE_ENV === "development"){
     var corsOptions = {
-        origin: "http://localhost:3000/",
+        origin: "http://localhost:3000",
         optionsSuccessStatus: 200,
     };
     app.use(cors(corsOptions));
