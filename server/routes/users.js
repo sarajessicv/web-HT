@@ -47,13 +47,12 @@ router.post('/register',
   });
 
 router.post('/login',
-  body("username").trim().escape(),
-  body("password"),
   (req, res, next) => {
+    console.log(req.body);
     User.findOne({ username: req.body.username }, (err, user) => {
       if (err) throw err;
       if (!user) {
-        return res.status(403).json({ message: "Login failed :(" });
+        return res.status(403).json({ message: "No user with this username" });
       } else {
         bcrypt.compare(req.body.password, user.password, (err, isMatch) => {
           if (err) throw err;
@@ -62,6 +61,7 @@ router.post('/login',
               id: user._id,
               username: user.username
             }
+            console.log(process.env.SECRET);
             jwt.sign(
               jwtPayload,
               process.env.SECRET,

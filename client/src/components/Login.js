@@ -15,13 +15,14 @@ function Login() {
     const onSubmit = (e) => {
       e.preventDefault();
 
-      const formData = new FormData(e.target);
-      
       console.log("login");
       fetch("/user/login", {
         method: "POST",
+        headers: {
+          "content-type": "application/JSON"
+        },
         mode: 'cors',
-        body: formData
+        body: JSON.stringify(user)
       })
       .then(response => response.json())
       .then(data => {
