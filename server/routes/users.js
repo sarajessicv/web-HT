@@ -48,7 +48,6 @@ router.post('/register',
 
 router.post('/login',
   (req, res, next) => {
-    console.log(req.body);
     User.findOne({ username: req.body.username }, (err, user) => {
       if (err) throw err;
       if (!user) {
@@ -58,10 +57,8 @@ router.post('/login',
           if (err) throw err;
           if (isMatch) {
             const jwtPayload = {
-              id: user._id,
               username: user.username
             }
-            console.log(process.env.SECRET);
             jwt.sign(
               jwtPayload,
               process.env.SECRET,

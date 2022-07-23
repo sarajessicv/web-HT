@@ -56,6 +56,17 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function SearchAppBar() {
+  let token;
+  let user;
+
+
+  token = localStorage.getItem("auth_token", token);
+  if (token === null) {
+    user = null;
+  } else {
+    user = JSON.parse(Buffer.from(token.split(".")[1], "base64").toString());
+  }
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -77,14 +88,16 @@ export default function SearchAppBar() {
           >
             <Link to="/" className='NavLink'>HOME</Link>
           </Typography>
+
           <Typography
             variant="h6"
             noWrap
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
           >
-            <Link to="/login" className='NavLink'>LOGIN</Link>
+            {token === null || token === undefined ? <Link to="/login" className='NavLink'>LOGIN</Link> : <Link to="/logout" className='NavLink'>LOGOUT</Link>}
           </Typography>
+
           <Search>
             <SearchIconWrapper>
               <SearchIcon />

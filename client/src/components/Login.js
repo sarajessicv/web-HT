@@ -15,7 +15,6 @@ function Login() {
     const onSubmit = (e) => {
       e.preventDefault();
 
-      console.log("login");
       fetch("/user/login", {
         method: "POST",
         headers: {
@@ -26,10 +25,11 @@ function Login() {
       })
       .then(response => response.json())
       .then(data => {
+        console.log("ENtäs täälä");
         if(data.token) {
           console.log("Pääsenkö");
           storeToken(data.token);
-          window.location.href="/";
+          window.location.href = "/";
       } else {
               console.log("####" + (data.errors));
               setErrorText(data.message);
