@@ -55,17 +55,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function SearchAppBar() {
-  let token;
-  let user;
-
-
-  token = localStorage.getItem("auth_token", token);
-  if (token === null) {
-    user = null;
-  } else {
-    user = JSON.parse(Buffer.from(token.split(".")[1], "base64").toString());
-  }
+export default function NavBar({token}) {
+ 
 
   return (
     <Box sx={{ flexGrow: 1 }}>

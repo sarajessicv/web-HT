@@ -13,7 +13,7 @@ function LogOutPage() {
       window.location.reload();
       navigate('/')
     }, 3000)
-  }, [])
+  })
 
 
   return (

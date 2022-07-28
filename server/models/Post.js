@@ -4,9 +4,9 @@ const Schema = mongoose.Schema;
 
 let postSchema = new Schema ({
     username: {type: String},
-    email: {type: String},
-    password: {type: String}
-
+    title: {type:String},
+    post: {type: String},
+    comments: {type: Array}
 });
 
 module.exports = mongoose.model("posts", postSchema);
