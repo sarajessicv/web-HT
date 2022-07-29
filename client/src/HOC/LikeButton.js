@@ -9,17 +9,11 @@ const LikeButton = (OriginalComponent) => {
 
         const token = props.token;
 
-        const [count, setCount] = useState(0)
         const [isVoted, setIsVoted] = useState(false)
+        const [count, setCount] = useState()
         const param = useParams();
 
         let disabled;
-
-        if(token && isVoted===false) {
-            disabled = false;
-        } else {
-            disabled = true;
-        }
 
         useEffect(() => {
             fetch("/api/getPost/" + param.id)
@@ -28,6 +22,18 @@ const LikeButton = (OriginalComponent) => {
                     setCount(post.likeCount);
                 });
         }, []);
+
+        console.log(isVoted)
+        console.log(token)
+
+        
+        if (token!=null && isVoted === false) {
+            console.log("VITTU")
+            disabled = false;
+        } else {
+            disabled = true;
+            console.log("VITT2")
+        }
 
         const incrementCount = () => {
             setIsVoted(true);

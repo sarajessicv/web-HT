@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 
 function LogOutPage() {
   localStorage.removeItem("auth_token");
+  localStorage.removeItem("isVoted");
 
   const navigate = useNavigate()
   navigate('/logout')
