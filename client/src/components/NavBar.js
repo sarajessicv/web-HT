@@ -9,6 +9,7 @@ import InputBase from '@mui/material/InputBase';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import { Link } from "react-router-dom";
+import { useRef } from 'react';
 
 
 // https://mui.com/material-ui/react-app-bar/
@@ -55,8 +56,23 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function NavBar({token}) {
- 
+export default function NavBar({ token }) {
+
+  let searchInput = useRef(null);
+
+  const [keyword, setKeyword] = React.useState("");
+
+  const onSearch = (e) => {
+    if (e.key === "Enter") {
+      console.log(keyword);
+      window.location.href = "/search/" + keyword;
+    }
+  }
+
+  const onChange = () => {
+    setKeyword(searchInput.current.value);
+  }
+
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -94,6 +110,9 @@ export default function NavBar({token}) {
               <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase
+              inputRef={searchInput}
+              onChange={onChange}
+              onKeyDown={onSearch}
               placeholder="Search…"
               inputProps={{ 'aria-label': 'search' }}
             />

@@ -2,11 +2,9 @@ import { useNavigate } from "react-router";
 import PostList from "../components/PostList";
 
 
-function FrontPage() {
-  let token;
+function FrontPage({token}) {
   let user;
 
-  token = localStorage.getItem("auth_token");
   console.log(token)
   if (token === null) {
     user = null;

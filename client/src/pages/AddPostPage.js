@@ -1,9 +1,7 @@
 import { useRef, useState } from 'react';
 
-function AddPostPage() {
+function AddPostPage({token}) {
 
-  let token
-  token = localStorage.getItem("auth_token");
   let user = JSON.parse(Buffer.from(token.split(".")[1], "base64").toString());
 
   const [post, setPost] = useState({});
@@ -11,6 +9,7 @@ function AddPostPage() {
 
   let titleInput = useRef(null);
   let postInput = useRef(null);
+  let codeInput = useRef(null);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -38,14 +37,23 @@ function AddPostPage() {
 
 
   const onChange = () => {
+    
     setPost({
       title: titleInput.current.value,
       post: postInput.current.value,
+      code: codeInput.current.value,
       comments: [],
-      username: user.username
+      username: user.username,
+      likeCount: 0
     })
   }
 
+  const setTime = () => {
+    const current = new Date();
+    const datetime = current.toLocaleDateString([], {hour: '2-digit', minute: '2-digit'});
+
+    setPost({...post, datetime: datetime});
+  }
 
 
   return (
@@ -54,8 +62,9 @@ function AddPostPage() {
       <p>Add a new post</p>
       <form onSubmit={onSubmit} onChange={onChange}>
         <input type={'text'} ref={titleInput} placeholder="title of the post"></input>
-        <textarea ref={postInput} placeholder="the post"></textarea>
-        <input type={'submit'} value={'Send a post'}></input>
+        <textarea ref={postInput} placeholder="What is your question"></textarea>
+        <textarea ref={codeInput} placeholder="Insert a code snippet here"></textarea>
+        <input type={'submit'} value={'Send a post'} onClick={setTime}></input>
       </form>
     </div>
   )

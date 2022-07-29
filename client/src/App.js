@@ -13,6 +13,7 @@ import LogOutPage from './pages/LogOutPage';
 import AddPostPage from './pages/AddPostPage';
 import NeedToLoginPage from './pages/NeedToLoginPage';
 import PostPage from './pages/PostPage';
+import SearchedPage from './pages/SearchedPage';
 
 function App() {
 
@@ -34,14 +35,15 @@ function App() {
       <div className="App">
         <NavBar token={token} />
         <Routes>
-          <Route path='/' element={<FrontPage />}> </Route>
+          <Route path='/' element={<FrontPage token={token} />}> </Route>
           <Route path='/login' element={<LoginPage />}></Route>
-          <Route path='/register' element={<RegisterPage />}></Route>
+          <Route path='/register' element={<RegisterPage/>}></Route>
           <Route path='/logout' element={<LogOutPage />}></Route>
           <Route path='/login/forgotpassword' element={<ForgotPasswordPage />}></Route>
-          <Route path='/addPost' element={<AddPostPage />}></Route>
-          <Route path='/post/:id' element={<PostPage />}></Route>
+          <Route path='/addPost' element={<AddPostPage token={token}/>}></Route>
+          <Route path='/post/:id' element={<PostPage token={token}/>}></Route>
           <Route path='/needToLogin' element={<NeedToLoginPage />}></Route>
+          <Route path='/search/:keyword' element={<SearchedPage token={token}/>}></Route>
           <Route path='*' element={<h1>404: This is not the webpage you are looking for</h1>}> </Route>
         </Routes>
         <Footer></Footer>

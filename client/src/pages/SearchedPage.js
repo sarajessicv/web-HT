@@ -1,9 +1,12 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import Pagination from './PaginationComponent';
+import Pagination from '../components/PaginationComponent';
 import { useRef } from 'react';
+import { useParams } from "react-router-dom";
 
-function PostList() {
+function SearchedPage() {
+
+    const param = useParams();
 
     let pagechoice = useRef(null);
 
@@ -14,18 +17,17 @@ function PostList() {
     const [page, setPage] = useState(1);
 
     useEffect(() => {
-        fetch("/api/getPosts")
+        fetch("/api/search/" + param.keyword)
             .then(response => response.json())
-            .then(postList => {
-                if (postList.length > 0) {
-                    setText("Available posts");
-                    setTemp(postList);
+            .then(posts => {
+                if (posts.length > 0) {
+                    setText("Posts found with keyword '" + param.keyword + "'");
+                    setTemp(posts);
                 } else {
-                    setText("No post available, be the first one to make one!");
+                    setText("No posts found with keyword '" + param.keyword + "'");
                 }
             })
     }, []);
-
 
     let count = Math.ceil(temp.length / slicer);
     let slicedPosts = temp.slice((slicer * page - slicer), slicer * page);
@@ -51,11 +53,11 @@ function PostList() {
                 <h3>{text}</h3>
                 <form onChange={onChange}>
                     <small>Posts per page</small>
-                <select ref={pagechoice}>
-                    <option value={5}>5</option>
-                    <option value={10}>10</option>
-                    <option value={25}>25</option>
-                </select>
+                    <select ref={pagechoice}>
+                        <option value={5}>5</option>
+                        <option value={10}>10</option>
+                        <option value={25}>25</option>
+                    </select>
                 </form>
                 <ul>
                     {slicedPosts.map((post) => (
@@ -69,11 +71,10 @@ function PostList() {
         return (
             <div>
                 <h3>{text}</h3>
+                <Link to={"/"}>Back to the posts</Link>
             </div>
         )
     }
-
-
 }
 
-export default PostList
+export default SearchedPage
