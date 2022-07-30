@@ -225,7 +225,7 @@ export default function PersistentDrawerLeft({ token, element }) {
                                 variant="h6"
                                 noWrap
                                 component="div"
-                                sx={{ flexGrow: 0, display: { xs: 'none', sm: 'block' } }}
+                                sx={{ flexGrow: 0, display: { xs: 'block', sm: 'block' } }}
                             >
                                 <button className='languageBtn' onClick={() => changeLanguage("fi")}>FI</button>
                             </Typography>} />
@@ -239,7 +239,7 @@ export default function PersistentDrawerLeft({ token, element }) {
                                 variant="h6"
                                 noWrap
                                 component="div"
-                                sx={{ flexGrow: 0, display: { xs: 'none', sm: 'block' } }}
+                                sx={{ flexGrow: 0, display: { xs: 'block', sm: 'block' } }}
                             >
                                 <button className='languageBtn' onClick={() => changeLanguage("en")}>EN</button>
                             </Typography>} />

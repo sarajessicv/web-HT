@@ -33,7 +33,7 @@
   .languageBtn {
     font-size: large;
     background-color: #cc99ff;
-    width: 100px;
+    width: 80px;
     box-shadow: 1px 3px rgba(92, 91, 91, 0.481);
     padding: 0.4rem;
     margin: 0.5rem;
@@ -101,4 +101,21 @@
   .textLink {
     text-decoration: none;
     color: black;
+  }
+
+
+  @media only screen and (max-width:600px) {
+    .languageBtn {
+      background-color: #cc99ff;
+      box-shadow: 1px 3px rgba(92, 91, 91, 0.481);
+    }
+
+    .listItem {
+      max-width: 70vw;
+    }
+
+    .inputField {
+      max-width: 70vw;
+    }
+
   }
