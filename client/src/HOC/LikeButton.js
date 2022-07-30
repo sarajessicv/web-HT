@@ -4,17 +4,21 @@ import ThumbDown from '@mui/icons-material/ThumbDownOffAlt';
 import ThumbUp from '@mui/icons-material/ThumbUpOffAlt';
 import { IconButton } from '@mui/material';
 
+// LikeButtons for posts and comments
+
 const LikeButton = (OriginalComponent) => {
     const NewComponent = (props) => {
 
         const token = props.token;
 
+        // checking wheter user has already voted or not
         const [isVoted, setIsVoted] = useState(false)
         const [count, setCount] = useState()
         const param = useParams();
 
         let disabled;
 
+        // fetching the likecounts from database
         useEffect(() => {
             fetch("/api/getPost/" + param.id)
                 .then(response => response.json())
@@ -26,15 +30,14 @@ const LikeButton = (OriginalComponent) => {
         console.log(isVoted)
         console.log(token)
 
-        
+        // defining if buttons are enabled or disabled
         if (token!=null && isVoted === false) {
-            console.log("VITTU")
             disabled = false;
         } else {
             disabled = true;
-            console.log("VITT2")
         }
 
+        // saving the new likecount to database if liked
         const incrementCount = () => {
             setIsVoted(true);
             fetch("/api/modifyLikes/" + param.id, {
@@ -50,7 +53,7 @@ const LikeButton = (OriginalComponent) => {
                     setCount(post.likeCount);
                 })
         }
-
+        // saving the new likecount to database if disliked
         const decrementCount = () => {
             setIsVoted(true);
             fetch("/api/modifyLikes/" + param.id, {

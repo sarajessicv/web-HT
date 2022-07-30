@@ -1,8 +1,11 @@
 import { useRef } from 'react';
 import React, { useState } from 'react';
 import { Link } from "react-router-dom";
+import {useTranslation} from 'react-i18next';
 
+// Register page content
 function Register() {
+  const {t, i18n} = useTranslation('common');
 
   const [errorText, setErrorText] = useState("");
   const [user, setUser] = useState({});
@@ -12,10 +15,11 @@ function Register() {
   let passwordInput = useRef(null);
   let password2Input = useRef(null);
 
+  // when user presses the button to register
   const onSubmit = (e) => {
-    console.log("register");
     e.preventDefault();
 
+    // fetching that there is no user with given username, registering user to database if not
     fetch("/user/register", {
       method: "POST",
       headers: {
@@ -27,20 +31,20 @@ function Register() {
       .then(response => response.json())
       .then(data => {
         if (data.success === true) {
-          console.log("Pääsenkö");
           storeToken(data.token);
           window.location.href = "/";
         } else {
-          console.log("####" + (data.errors));
           setErrorText(data.errors[0].msg);
         }
       })
   }
 
+  // storing authorization token so we can see if user is logged in or not
   function storeToken(token) {
     localStorage.setItem("auth_token", token);
   }
 
+  // getting user's inputs
   const onChange = () => {
     if (passwordInput.current.value === password2Input.current.value) {
       setErrorText("");
@@ -57,16 +61,16 @@ function Register() {
 
   return (
     <div>
-      <h2>Register page</h2>
+      <h2>{t("RegisterPage")}</h2>
       <form onSubmit={onSubmit} onChange={onChange}>
-        <input id="username" type="text" ref={usernameInput} placeholder='Username'></input>
-        <input id="email" type="text" ref={emailInput} placeholder='Email-address'></input>
-        <input id="password" type="password" ref={passwordInput} placeholder='Password'></input>
-        <input id="password2" type="password" ref={password2Input} placeholder='Password again'></input>
-        <input id="submit" type="submit" value="Register"></input>
+        <input className='inputField' id="username" type="text" ref={usernameInput} placeholder={t('Username')}></input>
+        <input className='inputField' id="email" type="text" ref={emailInput} placeholder={t('Email')}></input>
+        <input className='inputField' id="password" type="password" ref={passwordInput} placeholder={t('Password')}></input>
+        <input className='inputField' id="password2" type="password" ref={password2Input} placeholder={t('PasswordAgain')}></input>
+        <input id="submit" type="submit" value={t('RegisterBtn')} className='button'></input>
       </form>
-      <p>{errorText}</p>
-      <Link to='/login'>Already have an account?</Link>
+      <p className='errorText'>{errorText}</p>
+      <Link className='textLink' to='/login'>{t('RegisterToLogin')}</Link>
     </div>
   )
 }

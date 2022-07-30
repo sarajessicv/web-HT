@@ -2,6 +2,8 @@ import * as React from 'react';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 
+// Copied from MUI, functionality added myself
+
 export default function PaginationComponent({count, setPage, page}) {
 
   const handleChange = (event, value) => {

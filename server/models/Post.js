@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 
+// model to save the post to the database
+
 const Schema = mongoose.Schema;
 
 let postSchema = new Schema ({

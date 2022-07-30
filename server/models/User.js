@@ -1,6 +1,8 @@
 
 const mongoose = require("mongoose");
 
+// model to save a user to the database
+
 const Schema = mongoose.Schema;
 
 let userSchema = new Schema ({

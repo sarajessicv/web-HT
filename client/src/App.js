@@ -20,6 +20,8 @@ function App() {
   const [token, setToken] = useState(null);
   const [user, setUser] = useState({});
 
+  // getting the token if user is logged in or not
+
   useEffect(() => {
     setToken(localStorage.getItem("auth_token"));
     if (token === null) {
@@ -29,24 +31,27 @@ function App() {
     }
   }, []);
 
-
+// defining all the routes and 404 page if user is in some random page
+// giving routes component to navbar component so that navbar wont go on the content
   return (
     <Router>
       <div className="App">
-        <NavBar token={token} />
-        <Routes>
-          <Route path='/' element={<FrontPage token={token} />}> </Route>
-          <Route path='/login' element={<LoginPage />}></Route>
-          <Route path='/register' element={<RegisterPage/>}></Route>
-          <Route path='/logout' element={<LogOutPage />}></Route>
-          <Route path='/login/forgotpassword' element={<ForgotPasswordPage />}></Route>
-          <Route path='/addPost' element={<AddPostPage token={token}/>}></Route>
-          <Route path='/post/:id' element={<PostPage token={token}/>}></Route>
-          <Route path='/needToLogin' element={<NeedToLoginPage />}></Route>
-          <Route path='/search/:keyword' element={<SearchedPage token={token}/>}></Route>
-          <Route path='*' element={<h1>404: This is not the webpage you are looking for</h1>}> </Route>
-        </Routes>
+        <NavBar token={token} element={
+          <Routes>
+            <Route path='/' element={<FrontPage token={token} />}> </Route>
+            <Route path='/login' element={<LoginPage />}></Route>
+            <Route path='/register' element={<RegisterPage />}></Route>
+            <Route path='/logout' element={<LogOutPage />}></Route>
+            <Route path='/login/forgotpassword' element={<ForgotPasswordPage />}></Route>
+            <Route path='/addPost' element={<AddPostPage token={token} />}></Route>
+            <Route path='/post/:id' element={<PostPage token={token} />}></Route>
+            <Route path='/needToLogin' element={<NeedToLoginPage />}></Route>
+            <Route path='/search/:keyword' element={<SearchedPage token={token} />}></Route>
+            <Route path='*' element={<h1>404: This is not the webpage you are looking for</h1>}> </Route>
+          </Routes>
+        } />
         <Footer></Footer>
+
       </div>
     </Router>
   );

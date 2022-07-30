@@ -4,13 +4,16 @@ import React from "react";
 import { useRef } from "react";
 import Post from "../components/Post";
 import Comment from "../components/Comment";
+import {useTranslation} from 'react-i18next';
+
+
+// page to show one post and its comments and likes
 
 
 function PostPage({token}) {
+    const {t, i18n} = useTranslation('common');
 
     let commentInput = useRef(null);
-
-
     let user;
 
     if (token === null) {
@@ -28,8 +31,9 @@ function PostPage({token}) {
     const [newComment, setNewComment] = useState({});
     const [username, setUsername] = useState("");
     const [datetime, setDatetime] = useState("");
-    const [commentInfo, setCommentInfo] = useState("");
+    const [successState, setSuccessState] = useState(false);
 
+    // fetching the specific post user wanted to see
     useEffect(() => {
         fetch("/api/getPost/" + param.id)
             .then(response => response.json())
@@ -43,9 +47,11 @@ function PostPage({token}) {
             })
     }, []);
 
+    // when user adds a new comment
     const onSubmit = (e) => {
         e.preventDefault();
 
+        // saving the new comment to database
         fetch("/api/addComment/" + param.id, {
             method: "POST",
             mode: 'cors',
@@ -56,26 +62,32 @@ function PostPage({token}) {
         })
             .then(response => response.json())
             .then(data => {
-                console.log("ENtäs täälä");
                 if (data.success === true) {
-                    setCommentInfo("Refresh the page to see your comment");
-                    //console.log("Jee kommentti meni");
+                    setSuccessState(true);
                     commentInput.current.value = "";
                 } else {
                     console.log("####" + (data.errors));
-                    //toast.info(data.message, {transition: Slide})
                 }
             })
 
     };
 
+    // checking wheter the saving of a new comment has been successfull, if yes (and always yes) user is instructed to refresh the page so he can see the new comment
+    let commentInfo;
+    if(successState === true) {
+        commentInfo = "NeedToRefresh";
+    } else {
+        commentInfo = "";
+    }
+
+    // getting the comment content
     const onChange = () => {
         setNewComment({
             newComment: commentInput.current.value,
             username: user.username
         })
     }
-
+    // setting timestamp to comment when submitted
     const setTime = () => {
         const current = new Date();
         const datetime = current.toLocaleDateString([], { hour: '2-digit', minute: '2-digit' });
@@ -86,21 +98,21 @@ function PostPage({token}) {
 
     return (
         <div>
-            <p><small>Posted by: <br></br> {username}</small></p>
+            <p><small>{t("PostedBy")}</small> <h4>{username}</h4></p>
             <Post postTitle={title} postItem={text} postCode={code} datetime={datetime} token={token} />
             <div>
                 {token ?
                     <div><form onSubmit={onSubmit} onChange={onChange}>
-                        <textarea ref={commentInput} placeholder="Write your comment here" />
-                        <input type={'submit'} value={'Leave a comment'} onClick={setTime}></input>
+                        <textarea className='inputField' ref={commentInput} placeholder={t("WriteComment")} />
+                        <input type={'submit'} value={t("AddComment")} onClick={setTime} className='button'></input>
                     </form>
-                        <p>{commentInfo}</p></div> :
-                    <p>You need to login to leave a comment</p>}
+                        <p>{t(commentInfo)}</p></div> :
+                    <p>{t("NeedLoginCom")}</p>}
             </div>
             <div className="comments">
-                <ul>
+                <ul className="list">
                     {comments.map((comment, i) => (
-                        <li key={i}>
+                        <li className="listItem" key={i}>
                            <Comment datetime={comment.datetime} username={comment.username} newComment={comment.newComment} token={token}></Comment> 
                         </li>
                     ))}

@@ -3,6 +3,7 @@ var express = require('express');
 var router = express.Router();
 const Post = require("../models/Post");
 
+// endpoint to add new post to the database
 router.post('/addNewPost',
     (req, res, next) => {
         Post.create(
@@ -22,7 +23,7 @@ router.post('/addNewPost',
         );
     });
 
-
+// endpoint to get all the posts in the database
 router.get('/getPosts', (req, res, next) => {
     Post.find({}, (error, posts) => {
         if (error) throw error;
@@ -36,7 +37,7 @@ router.get('/getPosts', (req, res, next) => {
 
     })
 });
-
+// endpoint to get a specific post with databases id parameter
 router.get('/getPost/:id', (req, res, next) => {
     Post.findOne({ _id: req.params.id }, (error, post) => {
         if (error) throw error;
@@ -50,7 +51,7 @@ router.get('/getPost/:id', (req, res, next) => {
 
     })
 });
-
+// endpoint to add a new comment to the specific post
 router.post('/addComment/:id',
     (req, res, next) => {
         Post.findOne({ _id: req.params.id }, (error, post) => {
@@ -69,7 +70,8 @@ router.post('/addComment/:id',
 
         })
     });
-
+// endpoint to search if posts contain a specific keyword. Keyword is searched from the post title, question part and code part. 
+// If any of these contains the word will the post be returned to the user. From post's comments are not searched
 router.get('/search/:keyword', (req, res, next) => {
     const searchKey = new RegExp(req.params.keyword, 'i');
     Post.find({ $or: [{ title: searchKey }, { post: searchKey }, { code: searchKey }] }, (error, posts) => {
@@ -84,7 +86,7 @@ router.get('/search/:keyword', (req, res, next) => {
 
     })
 });
-
+// endpoint to add or decrease the likecount on a specific post 
 router.patch('/modifyLikes/:id',
     (req, res, next) => {
         Post.updateOne({ _id: req.params.id }, { $set: { likeCount: req.body.likeCount } }, (error, result) => {

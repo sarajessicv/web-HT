@@ -1,19 +1,20 @@
+import { Divider } from '@mui/material';
 import React from 'react';
-import { MDBFooter } from 'mdb-react-ui-kit';
-
-// https://mdbootstrap.com/docs/react/navigation/footer/
+import '../App.css';
 
 function Footer() {
+  
   return (
-    <MDBFooter bgColor='light' className='text-center text-lg-start text-muted'>
-        <br></br>
-      <div className='text-center p-4' style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)' }}>
-        © 2021 Copyright:
-        <a className='text-reset fw-bold' href='https://mdbootstrap.com/'>
-          MDBootstrap.com
-        </a>
+    <footer className="footer">
+    <div className="footer-copyright">
+      <div className="container">
+        <Divider></Divider>
+        <h4>LUT Web Application Project Work</h4>
+      © 2022 Copyright Sara Heikkinen
       </div>
-    </MDBFooter>
+    </div>
+  </footer>
   )};
 
+  // Fixed footer, seen in all pages
   export default Footer
